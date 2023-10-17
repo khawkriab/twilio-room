@@ -34,6 +34,10 @@ export default function useRoom(localTracks: LocalTrack[], onError: Callback, op
                     setRoom(newRoom)
                     const disconnect = () => newRoom.disconnect()
 
+                    // This app can add up to 16 'participantDisconnected' listeners to the room object, which can trigger
+                    // a warning from the EventEmitter object. Here we increase the max listeners to suppress the warning.
+                    newRoom.setMaxListeners(16)
+
                     newRoom.once('disconnected', () => {
                         // Reset the room only after all other `disconnected` listeners have been called.
                         setTimeout(() => setRoom(new EventEmitter() as Room))
@@ -47,13 +51,13 @@ export default function useRoom(localTracks: LocalTrack[], onError: Callback, op
                     // @ts-ignore
                     window.twilioRoom = newRoom
 
+                    // Tracks can be supplied as arguments to the Video.connect() function and they will automatically be published.
+                    // However, tracks must be published manually in order to set the priority on them.
+                    // All video tracks are published with 'low' priority. This works because the video
+                    // track that is displayed in the 'MainParticipant' component will have it's priority
+                    // set to 'high' via track.setPriority()
                     localTracksRef.current.forEach((track) =>
-                        // Tracks can be supplied as arguments to the Video.connect() function and they will automatically be published.
-                        // However, tracks must be published manually in order to set the priority on them.
-                        // All video tracks are published with 'low' priority. This works because the video
-                        // track that is displayed in the 'MainParticipant' component will have it's priority
-                        // set to 'high' via track.setPriority()
-                        newRoom.localParticipant.publishTrack(track, { priority: track.kind === 'video' ? 'low' : 'standard' })
+                        newRoom.localParticipant.publishTrack(track, { priority: track.kind === 'video' ? 'standard' : 'high' })
                     )
 
                     setIsConnecting(false)

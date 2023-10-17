@@ -42,7 +42,6 @@ export function VideoProvider({ options, children, onError }: VideoProviderProps
         console.log(`ERROR: ${error.message}`, error)
         onError(error)
     }
-
     const { localTracks, getLocalVideoTrack, getLocalAudioTrack, isAcquiringLocalTracks, removeLocalVideoTrack, removeLocalAudioTrack } =
         useLocalTracks()
     const { room, isConnecting, connect } = useRoom(localTracks, onErrorCallback, options)

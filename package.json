@@ -1,6 +1,6 @@
 {
     "name": "twilio-room",
-    "version": "1.0.0",
+    "version": "1.0.3",
     "description": "custom twilio-video UI",
     "main": "./dist/cjs/index.js",
     "module": "./dist/esm/index.js",
@@ -24,12 +24,12 @@
     "exports": {
         ".": {
             "import": {
-                "types": "./lib/esm/index.d.ts",
-                "default": "./lib/index.mjs"
+                "types": "./dist/esm/index.d.ts",
+                "default": "./dist/esm/index.js"
             },
             "require": {
-                "types": "./lib/cjs/index.d.ts",
-                "default": "./lib/cjs/index.js"
+                "types": "./dist/cjs/index.d.ts",
+                "default": "./dist/cjs/index.js"
             }
         }
     },
