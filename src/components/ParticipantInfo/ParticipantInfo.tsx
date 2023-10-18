@@ -1,6 +1,7 @@
 import React from 'react'
 import clsx from 'clsx'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { createStyles, makeStyles } from '@mui/styles'
+import { Theme } from '@mui/material'
 import { LocalAudioTrack, LocalVideoTrack, Participant, RemoteAudioTrack, RemoteVideoTrack } from 'twilio-video'
 
 import AudioLevelIndicator from '../AudioLevelIndicator/AudioLevelIndicator'
@@ -8,8 +9,8 @@ import BandwidthWarning from '../BandwidthWarning/BandwidthWarning'
 import NetworkQualityLevel from '../NewtorkQualityLevel/NetworkQualityLevel'
 import ParticipantConnectionIndicator from './ParticipantConnectionIndicator/ParticipantConnectionIndicator'
 import PinIcon from './PinIcon/PinIcon'
-import ScreenShare from '@material-ui/icons/ScreenShare'
-import VideocamOff from '@material-ui/icons/VideocamOff'
+import ScreenShare from '@mui/icons-material/ScreenShare'
+import VideocamOff from '@mui/icons-material/VideocamOff'
 
 import useParticipantNetworkQualityLevel from '../../hooks/useParticipantNetworkQualityLevel/useParticipantNetworkQualityLevel'
 import usePublications from '../../hooks/usePublications/usePublications'
@@ -83,10 +84,9 @@ interface ParticipantInfoProps {
     children: React.ReactNode
     onClick: () => void
     isSelected: boolean
-    pictureInPicture?: any
 }
 
-export default function ParticipantInfo({ participant, onClick, isSelected, pictureInPicture, children }: ParticipantInfoProps) {
+export default function ParticipantInfo({ participant, onClick, isSelected, children }: ParticipantInfoProps) {
     const publications = usePublications(participant)
 
     const audioPublication = publications.find((p) => p.kind === 'audio')
@@ -105,7 +105,7 @@ export default function ParticipantInfo({ participant, onClick, isSelected, pict
 
     return (
         <div
-            className={clsx(pictureInPicture ? clsx(classes.container, classes.isPip) : classes.container, {
+            className={clsx(classes.container, {
                 [classes.isVideoSwitchedOff]: isVideoSwitchedOff
             })}
             onClick={onClick}

@@ -29,9 +29,9 @@ export function SelectedParticipantProvider({ room, children }: SelectedParticip
         }
     }, [room])
 
-    const values: selectedParticipantContextType = React.useMemo(() => {
-        return [selectedParticipant, setSelectedParticipant]
-    }, [selectedParticipant, setSelectedParticipant])
-
-    return <selectedParticipantContext.Provider value={values}>{children}</selectedParticipantContext.Provider>
+    return (
+        <selectedParticipantContext.Provider value={[selectedParticipant, setSelectedParticipant]}>
+            {children}
+        </selectedParticipantContext.Provider>
+    )
 }

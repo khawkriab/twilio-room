@@ -1,7 +1,8 @@
-import React, { useRef, useEffect } from 'react'
-import { IVideoTrack } from '../../../types'
-import { styled } from '@material-ui/core/styles'
+import { useRef, useEffect } from 'react'
+// import { styled } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 import { Track } from 'twilio-video'
+import { IVideoTrack } from '../../../types'
 import useMediaStreamTrack from '../../hooks/useMediaStreamTrack/useMediaStreamTrack'
 
 const Video = styled('video')({

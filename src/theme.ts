@@ -1,27 +1,25 @@
-import { createTheme } from "@material-ui/core";
+import { createTheme } from '@mui/material'
 
+declare module '@mui/material' {
+    interface Theme {
+        sidebarWidth: number
+        sidebarMobileHeight: number
+    }
 
-declare module '@material-ui/core/styles/createTheme' {
-  interface Theme {
-    sidebarWidth: number;
-    sidebarMobileHeight: number;
-  }
-
-  // allow configuration using `createMuiTheme`
-  interface ThemeOptions {
-    sidebarWidth?: number;
-    sidebarMobileHeight?: number;
-  }
+    // allow configuration using `createMuiTheme`
+    interface ThemeOptions {
+        sidebarWidth?: number
+        sidebarMobileHeight?: number
+    }
 }
 
-
 export default createTheme({
-  palette: {
-    type: 'dark',
-    primary: {
-      main: '#F22F46',
+    palette: {
+        mode: 'dark',
+        primary: {
+            main: '#F22F46'
+        }
     },
-  },
-  sidebarWidth: 260,
-  sidebarMobileHeight: 90,
-});
+    sidebarWidth: 260,
+    sidebarMobileHeight: 90
+})

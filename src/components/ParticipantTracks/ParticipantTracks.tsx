@@ -1,4 +1,3 @@
-import React from 'react'
 import { Participant, Track } from 'twilio-video'
 import Publication from '../Publication/Publication'
 import usePublications from '../../hooks/usePublications/usePublications'
@@ -7,7 +6,6 @@ import useVideoContext from '../../hooks/useVideoContext/useVideoContext'
 interface ParticipantTracksProps {
     participant: Participant
     disableAudio?: boolean
-    enableScreenShare?: boolean
     videoPriority?: Track.Priority | null
 }
 
@@ -19,12 +17,12 @@ interface ParticipantTracksProps {
  *  and the Publication component renders Tracks.
  */
 
-export default function ParticipantTracks({ participant, disableAudio, enableScreenShare, videoPriority }: ParticipantTracksProps) {
+export default function ParticipantTracks({ participant, disableAudio, videoPriority }: ParticipantTracksProps) {
     const { room } = useVideoContext()
     const publications = usePublications(participant)
     const isLocal = participant === room.localParticipant
 
-    let filteredPublications = publications.filter((p) => !p.trackName.includes('screen'))
+    const filteredPublications = publications.filter((p) => !p.trackName.includes('screen'))
 
     return (
         <>

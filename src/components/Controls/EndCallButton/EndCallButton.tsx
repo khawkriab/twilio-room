@@ -1,34 +1,30 @@
-import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import React from 'react'
+import { createStyles } from '@mui/styles'
+import { makeStyles } from '@mui/styles'
+import CallEnd from '@mui/icons-material/CallEnd'
+import Fab from '@mui/material/Fab'
+import Tooltip from '@mui/material/Tooltip'
 
-import CallEnd from '@material-ui/icons/CallEnd';
-import Fab from '@material-ui/core/Fab';
-import Tooltip from '@material-ui/core/Tooltip';
-
-import useVideoContext from '../../../hooks/useVideoContext/useVideoContext';
+import useVideoContext from '../../../hooks/useVideoContext/useVideoContext'
+import { Theme } from '@mui/material/styles'
 
 const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    fab: {
-      margin: theme.spacing(1),
-    },
-  })
-);
+    createStyles({
+        fab: {
+            margin: theme.spacing(1)
+        }
+    })
+)
 
-export default function EndCallButton(props: any) {
-  const classes = useStyles();
-  const { room } = useVideoContext();
+export default function EndCallButton() {
+    const classes = useStyles()
+    const { clickEndcall } = useVideoContext()
 
-  const disconnect = () => {
-    // room.disconnect()
-    console.log(props.endCall());
-  }
-
-  return (
-    <Tooltip aria-controls="end-call" title={'End Call'} onClick={disconnect} placement="top" PopperProps={{ disablePortal: true }}>
-      <Fab className={classes.fab} color="primary">
-        <CallEnd />
-      </Fab>
-    </Tooltip>
-  );
+    return (
+        <Tooltip aria-controls='end-call' title={'End Call'} onClick={clickEndcall} placement='top' PopperProps={{ disablePortal: true }}>
+            <Fab className={classes.fab} color='primary'>
+                <CallEnd />
+            </Fab>
+        </Tooltip>
+    )
 }

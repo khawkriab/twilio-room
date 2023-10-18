@@ -1,13 +1,13 @@
 import React from 'react'
 import clsx from 'clsx'
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@mui/styles'
 import { LocalVideoTrack, Participant, RemoteVideoTrack } from 'twilio-video'
 
 import BandwidthWarning from '../BandwidthWarning/BandwidthWarning'
 import useIsTrackSwitchedOff from '../../hooks/useIsTrackSwitchedOff/useIsTrackSwitchedOff'
 import usePublications from '../../hooks/usePublications/usePublications'
 import useTrack from '../../hooks/useTrack/useTrack'
-import VideocamOff from '@material-ui/icons/VideocamOff'
+import VideocamOff from '@mui/icons-material/VideocamOff'
 
 const useStyles = makeStyles({
     container: {

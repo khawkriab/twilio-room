@@ -12,6 +12,7 @@ export default function useRoom(localTracks: LocalTrack[], onError: Callback, op
     const [isConnecting, setIsConnecting] = useState(false)
     const localTracksRef = useRef<LocalTrack[]>([])
     const optionsRef = useRef(options)
+    console.log('%c>> options:', 'background: #00f; color: #fff', options)
 
     useEffect(() => {
         // It can take a moment for Video.connect to connect to a room. During this time, the user may have enabled or disabled their
@@ -27,7 +28,7 @@ export default function useRoom(localTracks: LocalTrack[], onError: Callback, op
     }, [options])
 
     const connect = useCallback(
-        (token: any) => {
+        (token: any, onConected?: Callback) => {
             setIsConnecting(true)
             return Video.connect(token, { ...optionsRef.current, tracks: [] }).then(
                 (newRoom) => {
@@ -61,6 +62,7 @@ export default function useRoom(localTracks: LocalTrack[], onError: Callback, op
                     )
 
                     setIsConnecting(false)
+                    if (onConected) onConected(newRoom)
 
                     // Add a listener to disconnect from the room when a user closes their browser
                     window.addEventListener('beforeunload', disconnect)
