@@ -8,11 +8,10 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 window.TwilioVideo = Video
 
 export default function useRoom(localTracks: LocalTrack[], onError: Callback, options?: ConnectOptions) {
-    const [room, setRoom] = useState<Room>(new EventEmitter() as Room)
+    const [room, setRoom] = useState<Room | null>(null)
     const [isConnecting, setIsConnecting] = useState(false)
     const localTracksRef = useRef<LocalTrack[]>([])
     const optionsRef = useRef(options)
-    console.log('%c>> options:', 'background: #00f; color: #fff', options)
 
     useEffect(() => {
         // It can take a moment for Video.connect to connect to a room. During this time, the user may have enabled or disabled their

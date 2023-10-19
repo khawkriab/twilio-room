@@ -1,0 +1,20 @@
+{
+    "name": "twilio-room-example",
+    "version": "1.0.0",
+    "description": "UI test",
+    "dependencies": {
+        "react": "^16.14.0",
+        "react-dom": "^16.14.0",
+        "twilio-room": "file:../twilio-room-1.0.8.tgz"
+    },
+    "main": "index.tsx",
+    "scripts": {
+        "start": "cross-env FAST_REFRESH=false react-scripts start",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "khawkriab",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/react-dom": "^18.2.13"
+    }
+}

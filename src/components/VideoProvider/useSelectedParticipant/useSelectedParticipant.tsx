@@ -11,7 +11,7 @@ export default function useSelectedParticipant() {
 }
 
 type SelectedParticipantProviderProps = {
-    room: Room
+    room: Room | null
     children?: React.ReactNode
 }
 
@@ -21,11 +21,13 @@ export function SelectedParticipantProvider({ room, children }: SelectedParticip
         _setSelectedParticipant((prevParticipant) => (prevParticipant === participant ? null : participant))
 
     useEffect(() => {
-        const onDisconnect = () => _setSelectedParticipant(null)
-        room.on('disconnected', onDisconnect)
-
-        return () => {
+        if (room) {
+            const onDisconnect = () => _setSelectedParticipant(null)
             room.on('disconnected', onDisconnect)
+
+            return () => {
+                room.on('disconnected', onDisconnect)
+            }
         }
     }, [room])
 

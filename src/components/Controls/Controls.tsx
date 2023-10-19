@@ -1,6 +1,5 @@
 import React from 'react'
-import { createStyles } from '@mui/styles'
-import { makeStyles } from '@mui/styles'
+import { createStyles, makeStyles } from '@mui/styles'
 import clsx from 'clsx'
 
 import EndCallButton from './EndCallButton/EndCallButton'
@@ -33,6 +32,10 @@ const useStyles = makeStyles((theme: Theme) =>
             [theme.breakpoints.down('xs')]: {
                 bottom: `${theme.sidebarMobileHeight + 3}px`
             }
+        },
+        item: {
+            marginLeft: '12px',
+            marginRight: '12px'
         }
     })
 )
@@ -45,12 +48,16 @@ function Controls() {
 
     return (
         <div className={clsx(classes.container, { showControls })}>
-            <ToggleAudioButton disabled={isReconnecting} />
-            <ToggleVideoButton disabled={isReconnecting} />
+            <div className={classes.item}>
+                <ToggleAudioButton disabled={isReconnecting} />
+            </div>
+            <div className={classes.item}>
+                <ToggleVideoButton disabled={isReconnecting} />
+            </div>
             {roomState === 'connected' && (
-                <>
+                <div className={classes.item}>
                     <EndCallButton />
-                </>
+                </div>
             )}
         </div>
     )

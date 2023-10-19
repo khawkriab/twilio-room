@@ -20,9 +20,10 @@ import useEventError from './useEventError/useEventError'
  */
 
 export interface IVideoContext {
-    room: Room
+    room: Room | null
     localTracks: (LocalAudioTrack | LocalVideoTrack)[]
     isConnecting: boolean
+    onlyMainMonitor: boolean
     connect: (token: string, onConnected: Callback) => Promise<void>
     onError: ErrorCallback
     getLocalVideoTrack: (newOptions?: CreateLocalTrackOptions) => Promise<LocalVideoTrack>
@@ -35,19 +36,21 @@ export interface IVideoContext {
 export const VideoContext = createContext<IVideoContext>(null!)
 
 interface VideoProviderProps {
-    token?: String
+    token?: string
     options?: ConnectOptions
     onConnected?: Callback
     onClickEndcall?: (disconnect: Room) => void
     onDisconnected?: () => void
     onHandleError?: (error: TwilioError | null) => void
     eventHandlers?: TEventHandlers
+    showOnlyMainParticipant?: boolean
     children?: React.ReactNode
 }
 
 export function VideoProvider({
     token,
     options,
+    showOnlyMainParticipant = false,
     onConnected,
     onHandleError,
     onClickEndcall,
@@ -56,6 +59,7 @@ export function VideoProvider({
     children
 }: VideoProviderProps) {
     const [error, setError] = useState<TwilioError | null>(null)
+    const [onlyMainMonitor, setOnlyMainMonitor] = useState<boolean>(false)
 
     const onErrorCallback = (error: TwilioError) => {
         console.log(`ERROR: ${error.message}`, error)
@@ -75,7 +79,6 @@ export function VideoProvider({
 
     // Register onError and onDisconnect callback functions.
     useHandleRoomDisconnection(room, setError, removeLocalAudioTrack, removeLocalVideoTrack, onDisconnected)
-    useHandleRoomDisconnectionErrors(room, setError)
     useHandleTrackPublicationFailed(room, setError)
     useEventHandlers(room, eventHandlers)
     useEventError(error, onHandleError!)
@@ -84,12 +87,17 @@ export function VideoProvider({
         if (token) connect(token, onConnected)
     }, [token])
 
+    React.useEffect(() => {
+        setOnlyMainMonitor(showOnlyMainParticipant)
+    }, [showOnlyMainParticipant])
+
     return (
         <VideoContext.Provider
             value={{
                 room,
                 localTracks,
                 isConnecting,
+                onlyMainMonitor,
                 onError: onErrorCallback,
                 getLocalVideoTrack,
                 getLocalAudioTrack,

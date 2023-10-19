@@ -5,43 +5,26 @@ import LocalVideoPreview from './components/LocalVideoPreview/LocalVideoPreview'
 import MenuBar from './components/MenuBar/MenuBar'
 import ReconnectingNotification from './components/ReconnectingNotification/ReconnectingNotification'
 import Room from './components/Room/Room'
-import theme from './theme'
 import useRoomState from './hooks/useRoomState/useRoomState'
 import useVideoContext from './hooks/useVideoContext/useVideoContext'
-import { CircularProgress } from '@mui/material'
+import { CircularProgress, Theme } from '@mui/material'
 
 const useStyles = makeStyles({
-    isPictureInPicture: {
-        height: '100%',
-        minHeight: '200px'
-    },
-    screen: {
-        height: 'calc(100% - 64px)',
-        [theme.breakpoints.down('xs')]: {
-            height: 'calc(100% - 35px)'
-        }
-    },
-    contentPip: {
-        maxHeight: '40vh'
-    },
-    contentScreen: {
-        height: '100%'
-    },
     loadingSpinner: {
         marginLeft: '1em'
     }
 })
 
 const Container = styled('div')({
-    // display: 'grid',
-    // gridTemplateRows: '1fr auto',
+    position: 'relative',
     height: '100vh',
     maxHeight: '100%'
 })
 
-const Main = styled('main')(({ theme }) => ({
+const Main = styled('main')(({ theme }: { theme: Theme }) => ({
+    height: '100%',
     overflow: 'hidden',
-    backgroundColor: '#424242'
+    backgroundColor: theme.palette.background.default
 }))
 
 export const App = () => {

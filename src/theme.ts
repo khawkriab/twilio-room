@@ -1,6 +1,6 @@
-import { createTheme } from '@mui/material'
+import { createTheme } from '@mui/material/styles'
 
-declare module '@mui/material' {
+declare module '@mui/material/styles' {
     interface Theme {
         sidebarWidth: number
         sidebarMobileHeight: number

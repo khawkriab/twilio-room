@@ -1,5 +1,4 @@
 import * as React from 'react'
-import ReactDOM from 'react-dom'
 import { ThemeProvider } from '@mui/material/styles'
 import { CssBaseline } from '@mui/material'
 
@@ -19,9 +18,18 @@ export interface VideoAppProps {
     onDisconnected?: () => void
     onHandleError?: (error: TwilioError | null) => void
     eventHandlers?: TEventHandlers
+    showOnlyMainParticipant?: boolean
 }
 
-export const TwilioRoom = ({ token, onConnected, onClickEndcall, onDisconnected, onHandleError, eventHandlers }: VideoAppProps) => {
+export const TwilioRoom = ({
+    token,
+    onConnected,
+    onClickEndcall,
+    onDisconnected,
+    onHandleError,
+    eventHandlers,
+    showOnlyMainParticipant
+}: VideoAppProps) => {
     const connectionOptions = useConnectionOptions()
 
     return (
@@ -33,6 +41,7 @@ export const TwilioRoom = ({ token, onConnected, onClickEndcall, onDisconnected,
             onDisconnected={onDisconnected}
             onHandleError={onHandleError}
             eventHandlers={eventHandlers}
+            showOnlyMainParticipant={showOnlyMainParticipant}
         >
             <App />
         </VideoProvider>
@@ -46,15 +55,3 @@ export const TwilioRoomWrapper = (props: React.PropsWithChildren<{}>) => {
         </ThemeProvider>
     )
 }
-
-// const t =
-//     'eyJjdHkiOiJ0d2lsaW8tZnBhO3Y9MSIsInR5cCI6IkpXVCIsImFsZyI6IkhTMjU2In0.eyJpc3MiOiJTSzhmMTY0ZTRiYTQ1MDIwYWM5NWNhYjg4MzA5ZDFjZjNhIiwiZXhwIjoxNjk3NjQxMTY0LCJncmFudHMiOnsiaWRlbnRpdHkiOiJhYSIsInZpZGVvIjp7InJvb20iOiJQSEFSTTAzMjMxMDE4LTAwMDAxIn19LCJqdGkiOiJTSzhmMTY0ZTRiYTQ1MDIwYWM5NWNhYjg4MzA5ZDFjZjNhLTE2OTc2Mzc2MzIiLCJzdWIiOiJBQ2U3MWY5ZjgyMmZiNzQxNTE3ZGJiNGFjMzBjMzU0YWYwIn0.I8wH8is6BPUbzTBZCBjeAEg-xXDwjMqraDJTB-a_q5s'
-
-// const JoinRoom = () => {
-//     return (
-//         <TwilioRoomWrapper>
-//             <TwilioRoom token={t} />
-//         </TwilioRoomWrapper>
-//     )
-// }
-// ReactDOM.render(<JoinRoom />, document.getElementById('root'))

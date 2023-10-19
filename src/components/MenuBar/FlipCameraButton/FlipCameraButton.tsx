@@ -34,7 +34,7 @@ export default function FlipCameraButton() {
 
     return supportsFacingMode ? (
         <IconButton onClick={toggleFacingMode} disabled={!videoTrack}>
-            <FlipCameraIosIcon />
+            <FlipCameraIosIcon fontSize='large' />
         </IconButton>
     ) : null
 }

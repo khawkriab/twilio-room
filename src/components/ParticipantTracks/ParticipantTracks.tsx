@@ -20,7 +20,7 @@ interface ParticipantTracksProps {
 export default function ParticipantTracks({ participant, disableAudio, videoPriority }: ParticipantTracksProps) {
     const { room } = useVideoContext()
     const publications = usePublications(participant)
-    const isLocal = participant === room.localParticipant
+    const isLocal = participant === room?.localParticipant
 
     const filteredPublications = publications.filter((p) => !p.trackName.includes('screen'))
 
