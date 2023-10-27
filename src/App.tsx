@@ -1,51 +1,53 @@
-import React from 'react'
-import { styled, makeStyles } from '@mui/styles'
-import Controls from './components/Controls/Controls'
-import LocalVideoPreview from './components/LocalVideoPreview/LocalVideoPreview'
-import MenuBar from './components/MenuBar/MenuBar'
-import ReconnectingNotification from './components/ReconnectingNotification/ReconnectingNotification'
-import Room from './components/Room/Room'
-import useRoomState from './hooks/useRoomState/useRoomState'
-import useVideoContext from './hooks/useVideoContext/useVideoContext'
-import { CircularProgress, Theme } from '@mui/material'
+import React from 'react';
+import { styled, Theme } from '@material-ui/core/styles';
 
-const useStyles = makeStyles({
-    loadingSpinner: {
-        marginLeft: '1em'
-    }
-})
+import MenuBar from './components/MenuBar/MenuBar';
+import ReconnectingNotification from './components/ReconnectingNotification/ReconnectingNotification';
+import Room from './components/Room/Room';
+
+import useHeight from './hooks/useHeight/useHeight';
+import useRoomState from './hooks/useRoomState/useRoomState';
+import Controls from './components/Controls/Controls';
+import LocalVideoPreview from './components/LocalVideoPreview/LocalVideoPreview';
+import useVideoContext from './hooks/useVideoContext/useVideoContext';
 
 const Container = styled('div')({
-    position: 'relative',
-    height: '100vh',
-    maxHeight: '100%'
-})
+  position: 'relative',
+  height: '100vh',
+  maxHeight: '100%',
+  backgroundColor: '#000',
+});
 
 const Main = styled('main')(({ theme }: { theme: Theme }) => ({
-    height: '100%',
-    overflow: 'hidden',
-    backgroundColor: theme.palette.background.default
-}))
+  height: '100%',
+  overflow: 'hidden',
+  background: 'black',
+}));
 
-export const App = () => {
-    const classes = useStyles()
-    const roomState = useRoomState()
-    const { isConnecting } = useVideoContext()
+export default function App() {
+  const roomState = useRoomState();
+  const { audioAndVideoTracksStatus } = useVideoContext();
 
-    return (
-        <Container>
-            {isConnecting && <CircularProgress className={classes.loadingSpinner} />}
+  // Here we would like the height of the main container to be the height of the viewport.
+  // On some mobile browsers, 'height: 100vh' sets the height equal to that of the screen,
+  // not the viewport. This looks bad when the mobile browsers location bar is open.
+  // We will dynamically set the height with 'window.innerHeight', which means that this
+  // will look good on mobile browsers even after the location bar opens or closes.
+  const height = useHeight();
 
-            {roomState === 'disconnected' ? (
-                <LocalVideoPreview />
-            ) : (
-                <Main>
-                    <MenuBar />
-                    <Room />
-                    <Controls />
-                </Main>
-            )}
-            <ReconnectingNotification />
-        </Container>
-    )
+  return (
+    <Container style={{ height }}>
+      {audioAndVideoTracksStatus === 'finished' && <MenuBar />}
+
+      {roomState === 'disconnected' ? (
+        <LocalVideoPreview identity={'Preview Camera'} />
+      ) : (
+        <Main>
+          <ReconnectingNotification />
+          <Room />
+          <Controls />
+        </Main>
+      )}
+    </Container>
+  );
 }

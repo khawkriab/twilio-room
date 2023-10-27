@@ -25,7 +25,7 @@ describe('the useHandleTrackPublicationFailed hook', () => {
 
   it('should tear down old listeners when receiving a new room', () => {
     const originalMockRoom = mockRoom;
-    const { rerender } = renderHook(() => useHandleTrackPublicationFailed(mockRoom, () => {/* call back */ }));
+    const { rerender } = renderHook(() => useHandleTrackPublicationFailed(mockRoom, () => {}));
     expect(originalMockRoom.localParticipant.listenerCount('trackPublicationFailed')).toBe(1);
 
     act(() => {
@@ -39,7 +39,7 @@ describe('the useHandleTrackPublicationFailed hook', () => {
   });
 
   it('should clean up listeners on unmount', () => {
-    const { unmount } = renderHook(() => useHandleTrackPublicationFailed(mockRoom, () => {/* call back */ }));
+    const { unmount } = renderHook(() => useHandleTrackPublicationFailed(mockRoom, () => {}));
     unmount();
     expect(mockRoom.localParticipant.listenerCount('trackPublicationFailed')).toBe(0);
   });
