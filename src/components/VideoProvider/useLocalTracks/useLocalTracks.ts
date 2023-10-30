@@ -125,6 +125,9 @@ export default function useLocalTracks(onError: Callback) {
           onError(new Error('MicrophonePermissionsDenied'));
         }
       })
+      .catch((error) => {
+        onError(error);
+      })
       .finally(() => {
         setAudioAndVideoTracksStatus('finished');
         setIsAcquiringLocalTracks(false);

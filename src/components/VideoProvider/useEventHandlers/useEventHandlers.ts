@@ -10,7 +10,7 @@ import {
   Track,
   TwilioError,
 } from 'twilio-video';
-import { useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 
 export type TEventHandlers = {
   disconnected?: (room: Room, error: TwilioError) => void;
@@ -51,6 +51,8 @@ export type TEventHandlers = {
 export default function useEventHandlers(room: Room | null, eventHandlers?: TEventHandlers) {
   useEffect(() => {
     if (room && eventHandlers) {
+      console.log('eventHandlers:', eventHandlers);
+      console.log('room:', room);
       if (eventHandlers?.disconnected) room.on('disconnected', eventHandlers.disconnected);
       if (eventHandlers?.dominantSpeakerChanged)
         room.on('dominantSpeakerChanged', eventHandlers.dominantSpeakerChanged);

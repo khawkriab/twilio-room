@@ -36,7 +36,7 @@ export default function ToggleAudioButton(props: { disabled?: boolean; className
       <Tooltip
         title={isAudioEnabled ? 'Mute Audio' : 'Unmute Audio'}
         placement="top"
-        PopperProps={{ disablePortal: true }}
+        // PopperProps={{ disablePortal: true }}
       >
         {isAudioEnabled ? <Mic /> : <MicOff />}
       </Tooltip>

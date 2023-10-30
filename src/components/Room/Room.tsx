@@ -5,6 +5,7 @@ import { makeStyles, Theme } from '@material-ui/core';
 import { Participant, Room as IRoom } from 'twilio-video';
 import ParticipantList from '../ParticipantList/ParticipantList';
 import useVideoContext from '../../hooks/useVideoContext/useVideoContext';
+import { ParticipantAudioTracks } from '../ParticipantAudioTracks/ParticipantAudioTracks';
 
 const useStyles = makeStyles((theme: Theme) => {
   const totalMobileSidebarHeight = `${
@@ -87,7 +88,7 @@ export default function Room() {
         It is in a separate component so that the audio tracks will always be rendered, and that they will never be 
         unnecessarily unmounted/mounted as the user switches between Gallery View and speaker View.
       */}
-      {/* <ParticipantAudioTracks /> */}
+      <ParticipantAudioTracks />
       <ParticipantList />
       <MainParticipant />
       {/* <ChatWindow /> */}

@@ -23,7 +23,7 @@ export default function EndCallButton() {
 
   return (
     <Fab className={classes.fab} onClick={clickEndcall} data-cy-disconnect>
-      <Tooltip title={'End Call'} placement="top" PopperProps={{ disablePortal: true }}>
+      <Tooltip title={'End Call'} placement="top">
         <CallEnd />
       </Tooltip>
     </Fab>

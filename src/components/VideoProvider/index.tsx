@@ -9,6 +9,7 @@ import useHandleTrackPublicationFailed from './useHandleTrackPublicationFailed/u
 import useLocalTracks from './useLocalTracks/useLocalTracks';
 import useRestartAudioTrackOnDeviceChange from './useRestartAudioTrackOnDeviceChange/useRestartAudioTrackOnDeviceChange';
 import useRoom from './useRoom/useRoom';
+import useEventHandlers, { TEventHandlers } from './useEventHandlers/useEventHandlers';
 
 /*
  *  The hooks used by the VideoProvider component are different than the hooks found in the 'hooks/' directory. The hooks
@@ -39,11 +40,12 @@ export const VideoContext = createContext<IVideoContext>(null!);
 interface VideoProviderProps {
   token?: string;
   options?: ConnectOptions;
+  showOnlyMainParticipant?: boolean;
+  eventHandlers?: TEventHandlers;
   onConnected?: Callback;
-  onClickEndcall?: (disconnect: Room) => void;
+  onClickEndcall?: (room: Room) => void;
   onDisconnected?: () => void;
   onError: ErrorCallback;
-  showOnlyMainParticipant?: boolean;
   children?: React.ReactNode;
 }
 
@@ -51,6 +53,7 @@ export function VideoProvider({
   token,
   options,
   showOnlyMainParticipant = false,
+  eventHandlers,
   onConnected,
   onError,
   onClickEndcall,
@@ -79,10 +82,12 @@ export function VideoProvider({
   const { room, isConnecting, connect } = useRoom(localTracks, onErrorCallback, options);
 
   const onDisconnect = () => {
-    if (onClickEndcall!) {
-      onClickEndcall(room!.disconnect());
-    } else {
-      room!.disconnect();
+    if (room) {
+      if (onClickEndcall) {
+        onClickEndcall(room);
+      } else {
+        room.disconnect();
+      }
     }
   };
 
@@ -90,6 +95,7 @@ export function VideoProvider({
   useHandleRoomDisconnection(room, onError, removeLocalAudioTrack, removeLocalVideoTrack, onDisconnected);
   useHandleTrackPublicationFailed(room, onError);
   useRestartAudioTrackOnDeviceChange(localTracks);
+  useEventHandlers(room, eventHandlers);
   // extends
   useEffect(() => {
     getAudioAndVideoTracks();

@@ -13,6 +13,7 @@ import useIsTrackSwitchedOff from '../../hooks/useIsTrackSwitchedOff/useIsTrackS
 import usePublications from '../../hooks/usePublications/usePublications';
 import useTrack from '../../hooks/useTrack/useTrack';
 import useParticipantIsReconnecting from '../../hooks/useParticipantIsReconnecting/useParticipantIsReconnecting';
+import VideoIndicator from '../VideoIndicator/VideoIndicator';
 
 const borderWidth = 2;
 
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
       border: `${theme.participantBorderWidth}px solid rgb(245, 248, 255)`,
       paddingTop: `calc(${(9 / 16) * 100}% - ${theme.participantBorderWidth}px)`,
       background: 'black',
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('md')]: {
         height: theme.sidebarMobileHeight,
         width: `${(theme.sidebarMobileHeight * 16) / 9}px`,
         marginRight: '8px',
@@ -71,7 +72,7 @@ const useStyles = makeStyles((theme: Theme) =>
       bottom: 0,
       left: 0,
       zIndex: 1,
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('md')]: {
         '& svg': {
           transform: 'scale(0.7)',
         },
@@ -105,6 +106,9 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: 0,
       display: 'flex',
       alignItems: 'center',
+      '& path:not([fill="red"])': {
+        fill: 'white',
+      },
     },
     infoRowBottom: {
       display: 'flex',
@@ -115,7 +119,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     typography: {
       color: 'white',
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('md')]: {
         fontSize: '0.75rem',
       },
     },
@@ -128,7 +132,7 @@ const useStyles = makeStyles((theme: Theme) =>
     galleryView: {
       border: `${theme.participantBorderWidth}px solid ${theme.galleryViewBackgroundColor}`,
       borderRadius: '8px',
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('md')]: {
         position: 'relative',
         width: '100%',
         height: '100%',
@@ -205,6 +209,7 @@ export default function ParticipantInfo({
         <div className={classes.infoRowBottom}>
           <span className={classes.identity}>
             <AudioLevelIndicator audioTrack={audioTrack} />
+            <VideoIndicator isVideoEnabled={isVideoEnabled && !isVideoSwitchedOff} />
             <Typography variant="body1" className={classes.typography} component="span">
               {participant.identity}
               {isLocalParticipant && ' (You)'}

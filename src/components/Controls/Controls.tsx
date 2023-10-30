@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
       right: '50%',
       transform: 'translate(50%, 30px)',
       bottom: '50px',
-      zIndex: 4,
+      zIndex: 6,
       transition: 'opacity 1.2s, transform 1.2s, visibility 0s 1.2s',
       opacity: 0,
       visibility: 'hidden',
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
         visibility: 'visible',
         transform: 'translate(50%, 0px)',
       },
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('md')]: {
         bottom: `${theme.sidebarMobileHeight + 12}px`,
       },
     },

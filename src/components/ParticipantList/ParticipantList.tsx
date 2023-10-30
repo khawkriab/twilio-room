@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
       background: 'rgb(79, 83, 85)',
       // gridArea: '1 / 2 / 1 / 3',
       zIndex: 5,
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('md')]: {
         // gridArea: '2 / 1 / 3 / 3',
         overflowY: 'initial',
         overflowX: 'auto',
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
     innerScrollContainer: {
       width: `calc(${theme.sidebarWidth}px - 3em)`,
       padding: '1.5em 0',
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('md')]: {
         width: 'auto',
         padding: `${theme.sidebarMobilePadding}px`,
         display: 'flex',
@@ -41,6 +41,39 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
+
+export function MTPublisher() {
+  const { room } = useVideoContext();
+  const localParticipant = room!.localParticipant;
+  const { speakerViewParticipants } = useParticipantsContext();
+
+  if (speakerViewParticipants.length === 0 && !localParticipant) return null; // Don't render this component if there are no remote participants.
+
+  return <Participant participant={localParticipant} isLocalParticipant={true} />;
+}
+export function MTSubscriber() {
+  const { room } = useVideoContext();
+  const { speakerViewParticipants } = useParticipantsContext();
+  const [selectedParticipant, setSelectedParticipant] = useSelectedParticipant();
+
+  if (speakerViewParticipants.length === 0) return null; // Don't render this component if there are no remote participants.
+
+  return (
+    <div>
+      {speakerViewParticipants.map((participant) => {
+        return (
+          <Participant
+            key={participant.sid}
+            participant={participant}
+            isSelected={participant === selectedParticipant}
+            onClick={() => setSelectedParticipant(participant)}
+            // hideParticipant={hideParticipant}
+          />
+        );
+      })}
+    </div>
+  );
+}
 
 export default function ParticipantList() {
   const classes = useStyles();

@@ -14,7 +14,7 @@ export const IconContainer = styled('div')({
 });
 
 export default function Menu(props: { buttonClassName?: string }) {
-  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));
 
   const [aboutOpen, setAboutOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -36,7 +36,7 @@ export default function Menu(props: { buttonClassName?: string }) {
       <MenuContainer
         open={menuOpen}
         onClose={() => setMenuOpen((isOpen) => !isOpen)}
-        anchorEl={anchorRef.current}
+        // anchorEl={anchorRef.current}
         anchorOrigin={{
           vertical: 'top',
           horizontal: 'left',

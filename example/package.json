@@ -5,8 +5,7 @@
   "dependencies": {
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "twilio-room-mark2": "file:../twilio-room-mark2-1.0.2.tgz",
-    "twilio-room-mask2": "file:../twilio-room-mask2-1.0.1.tgz"
+    "twilio-room": "file:../twilio-room-1.1.2.tgz"
   },
   "main": "index.tsx",
   "scripts": {

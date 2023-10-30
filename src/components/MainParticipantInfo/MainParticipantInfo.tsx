@@ -12,6 +12,7 @@ import useParticipantIsReconnecting from '../../hooks/useParticipantIsReconnecti
 import usePublications from '../../hooks/usePublications/usePublications';
 import useTrack from '../../hooks/useTrack/useTrack';
 import useVideoContext from '../../hooks/useVideoContext/useVideoContext';
+import VideoIndicator from '../VideoIndicator/VideoIndicator';
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -51,7 +52,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   fullWidth: {
     gridArea: '1 / 1 / 2 / 3',
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       gridArea: '1 / 1 / 3 / 3',
     },
   },
@@ -80,7 +81,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: '0.1em 0.3em 0.1em 0',
     fontSize: '1.2rem',
     height: '28px',
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       bottom: 'auto',
       right: 0,
       top: 0,
@@ -144,6 +145,7 @@ export default function MainParticipantInfo({ participant, children }: MainParti
         <div style={{ display: 'flex' }}>
           <div className={classes.identity}>
             <AudioLevelIndicator audioTrack={audioTrack} />
+            <VideoIndicator isVideoEnabled={isVideoEnabled && !isVideoSwitchedOff} />
             <Typography variant="body1" color="inherit">
               {participant.identity}
               {isLocal && ' (You)'}
