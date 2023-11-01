@@ -3,7 +3,7 @@ on: push
 
 jobs:
   build:
-    name: Test on node ${{ runs-on }}
+    name: Test npm publish
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4.1.1
