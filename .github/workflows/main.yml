@@ -3,7 +3,7 @@ on: push
 
 jobs:
   build:
-    name: Test npm publish ${{github.head_ref}} ${{github.ref}} ${{github.ref_name}}
+    name: Test npm publish ${{github.event.comment.body}}
     runs-on: windows-latest
     #if: ${{github.event.commits =~ /github:publish|publish:/}}
     steps:
