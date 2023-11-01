@@ -107,5 +107,5 @@ dist
 .DS_Store
 lib
 *.tgz
-package-lock.json
+#package-lock.json
 .npmrc
