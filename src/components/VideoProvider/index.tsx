@@ -1,6 +1,6 @@
 import React, { createContext, useCallback, useEffect } from 'react';
 import { CreateLocalTrackOptions, ConnectOptions, LocalAudioTrack, LocalVideoTrack, Room } from 'twilio-video';
-import { Callback, ErrorCallback } from '../../types';
+import { ErrorCallback, TEventHandlers, TrackProperty } from '../../types';
 import { SelectedParticipantProvider } from './useSelectedParticipant/useSelectedParticipant';
 
 import AttachVisibilityHandler from './AttachVisibilityHandler/AttachVisibilityHandler';
@@ -9,7 +9,7 @@ import useHandleTrackPublicationFailed from './useHandleTrackPublicationFailed/u
 import useLocalTracks from './useLocalTracks/useLocalTracks';
 import useRestartAudioTrackOnDeviceChange from './useRestartAudioTrackOnDeviceChange/useRestartAudioTrackOnDeviceChange';
 import useRoom from './useRoom/useRoom';
-import useEventHandlers, { TEventHandlers } from './useEventHandlers/useEventHandlers';
+import useEventHandlers from './useEventHandlers/useEventHandlers';
 
 /*
  *  The hooks used by the VideoProvider component are different than the hooks found in the 'hooks/' directory. The hooks
@@ -26,7 +26,7 @@ export interface IVideoContext {
   isConnecting: boolean;
   pinMainParticipant: boolean;
   audioAndVideoTracksStatus: TAudioAndVideoTracksStatus;
-  connect: (token: string) => Promise<void>;
+  connect: (token: string, onConnected?: (room: Room, trackProperty: TrackProperty) => void) => Promise<void>;
   onError: ErrorCallback;
   getLocalVideoTrack: (newOptions?: CreateLocalTrackOptions) => Promise<LocalVideoTrack>;
   isAcquiringLocalTracks: boolean;
@@ -42,7 +42,7 @@ interface VideoProviderProps {
   options?: ConnectOptions;
   showOnlyMainParticipant?: boolean;
   eventHandlers?: TEventHandlers;
-  onConnected?: Callback;
+  onConnected?: (room: Room, trackProperty: TrackProperty) => void;
   onClickEndcall?: (room: Room) => void;
   onDisconnected?: () => void;
   onError: ErrorCallback;

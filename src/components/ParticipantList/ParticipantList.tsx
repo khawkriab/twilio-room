@@ -42,38 +42,6 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export function MTPublisher() {
-  const { room } = useVideoContext();
-  const localParticipant = room!.localParticipant;
-  const { speakerViewParticipants } = useParticipantsContext();
-
-  if (speakerViewParticipants.length === 0 && !localParticipant) return null; // Don't render this component if there are no remote participants.
-
-  return <Participant participant={localParticipant} isLocalParticipant={true} />;
-}
-export function MTSubscriber() {
-  const { room } = useVideoContext();
-  const { speakerViewParticipants } = useParticipantsContext();
-  const [selectedParticipant, setSelectedParticipant] = useSelectedParticipant();
-
-  if (speakerViewParticipants.length === 0) return null; // Don't render this component if there are no remote participants.
-
-  return (
-    <div>
-      {speakerViewParticipants.map((participant) => {
-        return (
-          <Participant
-            key={participant.sid}
-            participant={participant}
-            isSelected={participant === selectedParticipant}
-            onClick={() => setSelectedParticipant(participant)}
-            // hideParticipant={hideParticipant}
-          />
-        );
-      })}
-    </div>
-  );
-}
 
 export default function ParticipantList() {
   const classes = useStyles();

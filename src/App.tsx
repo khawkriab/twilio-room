@@ -33,7 +33,6 @@ export default function App() {
   // not the viewport. This looks bad when the mobile browsers location bar is open.
   // We will dynamically set the height with 'window.innerHeight', which means that this
   // will look good on mobile browsers even after the location bar opens or closes.
-  const height = useHeight();
 
   return (
     <Container>
@@ -52,7 +51,7 @@ export default function App() {
   );
 }
 
-export function AppRoom({ children }: { children?: React.ReactNode }) {
+export function AppRoom() {
   const roomState = useRoomState();
   const { audioAndVideoTracksStatus } = useVideoContext();
 
@@ -72,7 +71,7 @@ export function AppRoom({ children }: { children?: React.ReactNode }) {
       ) : (
         <Main>
           <ReconnectingNotification />
-          {children && children}
+          <Room />
           <Controls />
         </Main>
       )}

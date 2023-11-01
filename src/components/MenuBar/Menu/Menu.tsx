@@ -36,7 +36,7 @@ export default function Menu(props: { buttonClassName?: string }) {
       <MenuContainer
         open={menuOpen}
         onClose={() => setMenuOpen((isOpen) => !isOpen)}
-        // anchorEl={anchorRef.current}
+        anchorEl={anchorRef.current}
         anchorOrigin={{
           vertical: 'top',
           horizontal: 'left',

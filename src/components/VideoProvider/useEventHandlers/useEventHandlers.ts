@@ -1,58 +1,10 @@
-import {
-  LocalParticipant,
-  LocalTrackPublication,
-  RemoteDataTrack,
-  RemoteParticipant,
-  RemoteTrack,
-  RemoteTrackPublication,
-  RemoteVideoTrack,
-  Room,
-  Track,
-  TwilioError,
-} from 'twilio-video';
-import { useRef, useEffect } from 'react';
-
-export type TEventHandlers = {
-  disconnected?: (room: Room, error: TwilioError) => void;
-  dominantSpeakerChanged?: (dominantSpeaker: RemoteParticipant) => void;
-  participantConnected?: (participant: RemoteParticipant) => void;
-  participantDisconnected?: (participant: RemoteParticipant) => void;
-  participantReconnected?: (participant: RemoteParticipant) => void;
-  participantReconnecting?: (participant: RemoteParticipant) => void;
-  reconnected?: () => void;
-  reconnecting?: (error: TwilioError) => void;
-  recordingStarted?: () => void;
-  recordingStopped?: () => void;
-  dimensionsChanged?: (track: RemoteVideoTrack, participant: RemoteParticipant) => void;
-  disabled?: (publication: RemoteTrackPublication, participant: RemoteParticipant) => void;
-  enabled?: (publication: RemoteTrackPublication, participant: RemoteParticipant) => void;
-  message?: (data: string | ArrayBuffer, track: RemoteDataTrack, participant: RemoteParticipant) => void;
-  published?: (publication: RemoteTrackPublication, participant: RemoteParticipant) => void;
-  publishPriorityChanged?: (
-    priority: Track.Priority,
-    publication: RemoteTrackPublication,
-    participant: RemoteParticipant
-  ) => void;
-  started?: (track: RemoteTrack, participant: RemoteParticipant) => void;
-  subscribed?: (track: RemoteTrack, publication: RemoteTrackPublication, participant: RemoteParticipant) => void;
-  subscriptionFailed?: (
-    error: TwilioError,
-    publication: RemoteTrackPublication,
-    participant: RemoteParticipant
-  ) => void;
-  switchedOff?: (track: RemoteTrack, publication: RemoteTrackPublication, participant: RemoteParticipant) => void;
-  switchedOn?: (track: RemoteTrack, publication: RemoteTrackPublication, participant: RemoteParticipant) => void;
-  unpublished?: (publication: RemoteTrackPublication, participant: RemoteParticipant) => void;
-  unsubscribed?: (track: RemoteTrack, publication: RemoteTrackPublication, participant: RemoteParticipant) => void;
-  warning?: (name: string, publication: LocalTrackPublication, participant: LocalParticipant) => void;
-  warningsCleared?: (publication: LocalTrackPublication, participant: LocalParticipant) => void;
-};
+import { Room } from 'twilio-video';
+import { useEffect } from 'react';
+import { TEventHandlers } from '../../../types';
 
 export default function useEventHandlers(room: Room | null, eventHandlers?: TEventHandlers) {
   useEffect(() => {
     if (room && eventHandlers) {
-      console.log('eventHandlers:', eventHandlers);
-      console.log('room:', room);
       if (eventHandlers?.disconnected) room.on('disconnected', eventHandlers.disconnected);
       if (eventHandlers?.dominantSpeakerChanged)
         room.on('dominantSpeakerChanged', eventHandlers.dominantSpeakerChanged);

@@ -1,6 +1,6 @@
 import { Callback } from '../../../types';
 import { isMobile } from '../../../utils';
-import Video, { ConnectOptions, LocalTrack, Room } from 'twilio-video';
+import Video, { ConnectOptions, LocalTrack, Room, TrackPublication } from 'twilio-video';
 import { VideoRoomMonitor } from '@twilio/video-room-monitor';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
@@ -19,11 +19,11 @@ export default function useRoom(localTracks: LocalTrack[], onError: Callback, op
   }, [options]);
 
   const connect = useCallback(
-    (token, onConected?: Callback) => {
+    (token, onConected) => {
       setIsConnecting(true);
 
       return Video.connect(token, { ...optionsRef.current, tracks: localTracks }).then(
-        newRoom => {
+        (newRoom) => {
           setRoom(newRoom);
           VideoRoomMonitor.registerVideoRoom(newRoom);
           const disconnect = () => newRoom.disconnect();
@@ -45,7 +45,7 @@ export default function useRoom(localTracks: LocalTrack[], onError: Callback, op
           // @ts-ignore
           window.twilioRoom = newRoom;
 
-          newRoom.localParticipant.videoTracks.forEach(publication =>
+          newRoom.localParticipant.videoTracks.forEach((publication) =>
             // All video tracks are published with 'low' priority because the video track
             // that is displayed in the 'MainParticipant' component will have it's priority
             // set to 'high' via track.setPriority()
@@ -53,7 +53,18 @@ export default function useRoom(localTracks: LocalTrack[], onError: Callback, op
           );
 
           setIsConnecting(false);
-          if (onConected) onConected(newRoom);
+
+          if (onConected) {
+            const _tracks = Array.from(newRoom.localParticipant.tracks.values()) as TrackPublication[];
+
+            const videoPublication = _tracks.find((p) => !p.trackName.includes('screen') && p.kind === 'video');
+            const audioPublication = _tracks.find((p) => p.kind === 'audio');
+
+            const isVideoEnabled = Boolean(videoPublication);
+            const isTrackEnabled = Boolean(audioPublication);
+
+            onConected(newRoom, { tracks: _tracks, isVideoEnabled: isVideoEnabled, isAudioEnabled: isTrackEnabled });
+          }
 
           // Add a listener to disconnect from the room when a user closes their browser
           window.addEventListener('beforeunload', disconnect);
@@ -63,7 +74,7 @@ export default function useRoom(localTracks: LocalTrack[], onError: Callback, op
             window.addEventListener('pagehide', disconnect);
           }
         },
-        error => {
+        (error) => {
           onError(error);
           setIsConnecting(false);
         }

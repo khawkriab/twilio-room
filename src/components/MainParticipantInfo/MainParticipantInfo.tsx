@@ -27,7 +27,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: '0.1em 0.3em 0.1em 0',
     display: 'inline-flex',
     '& svg': {
-      marginLeft: '0.3em',
+      marginRight: '0.3em',
+    },
+    '& path:not([fill="red"])': {
+      fill: 'white',
     },
     marginRight: '0.4em',
     alignItems: 'center',
