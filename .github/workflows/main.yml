@@ -3,8 +3,9 @@ on: push
 
 jobs:
   build:
-    name: Test npm publish
+    name: Test npm publish ${{github.event.commits}}
     runs-on: windows-latest
+    if: ${{github.event.commits =~ /github:publish|publish:/}}
     steps:
       - uses: actions/checkout@v4.1.1
       - uses: actions/setup-node@v4.0.0
@@ -14,4 +15,5 @@ jobs:
       - run: npm install
       - run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_ACCESS_TOKEN}}
+          NODE_AUTH_TOKEN: ${{secrets.ACCESS_TOKEN}}
+      
