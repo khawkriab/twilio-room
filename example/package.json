@@ -2,21 +2,37 @@
   "name": "twilio-room-example",
   "version": "1.0.0",
   "description": "UI test",
-  "dependencies": {
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "twilio-room": "file:../twilio-room-1.1.4.tgz"
-  },
   "main": "index.tsx",
   "scripts": {
-    "start": "cross-env FAST_REFRESH=false react-scripts start",
+    "start:dev": "cross-env FAST_REFRESH=false react-scripts start",
+    "start": "webpack serve --mode development",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@pharmcare/twilio-room": "file:../pharmcare-twilio-room-0.0.5.tgz",
+    "@twilio/video-room-monitor": "^1.0.1",
+    "@types/react": "^18.3.8",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "twilio-room": "file:../pharmcare-twilio-room-0.0.5.tgz",
+    "typescript": "^4.9.5",
+    "webpack": "^5.94.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.4",
+    "@babel/preset-react": "^7.24.7",
+    "@babel/preset-typescript": "^7.24.7",
+    "@types/react-dom": "^18.3.0",
+    "babel-loader": "^9.2.1",
+    "html-webpack-plugin": "^5.6.0",
+    "source-map-loader": "^5.0.0",
+    "ts-loader": "^9.5.1"
   },
   "author": "khawkriab",
   "license": "MIT",
-  "devDependencies": {
-    "@types/react-dom": "^18.2.13"
-  },
   "browserslist": {
     "production": [
       ">0.2%",

@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function UnsupportedBrowserWarning({ children }: { children: React.ReactElement }) {
+export default function UnsupportedBrowserWarning({ children }: { children?: React.ReactNode }) {
   const classes = useStyles();
 
   if (!Video.isSupported) {
@@ -55,5 +55,5 @@ export default function UnsupportedBrowserWarning({ children }: { children: Reac
     );
   }
 
-  return children;
+  return <>{children}</>;
 }

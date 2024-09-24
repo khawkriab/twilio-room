@@ -43,11 +43,11 @@ const VideoApp = ({ onHandleError, ...props }: VideoAppProps) => {
 const TwilioRoom = (props: VideoAppProps) => (
   <MuiThemeProvider theme={theme}>
     <CssBaseline />
-    {/* <UnsupportedBrowserWarning> */}
-    <AppStateProvider>
-      <VideoApp {...props} />
-    </AppStateProvider>
-    {/* </UnsupportedBrowserWarning> */}
+    <UnsupportedBrowserWarning>
+      <AppStateProvider>
+        <VideoApp {...props} />
+      </AppStateProvider>
+    </UnsupportedBrowserWarning>
   </MuiThemeProvider>
 );
 

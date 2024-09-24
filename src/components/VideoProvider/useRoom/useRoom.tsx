@@ -19,13 +19,15 @@ export default function useRoom(localTracks: LocalTrack[], onError: Callback, op
   }, [options]);
 
   const connect = useCallback(
-    (token, onConected) => {
+    (token: string, onConected?: (...args: any) => void) => {
       setIsConnecting(true);
 
       return Video.connect(token, { ...optionsRef.current, tracks: localTracks }).then(
         (newRoom) => {
           setRoom(newRoom);
+
           VideoRoomMonitor.registerVideoRoom(newRoom);
+
           const disconnect = () => newRoom.disconnect();
 
           // This app can add up to 16 'participantDisconnected' listeners to the room object, which can trigger
