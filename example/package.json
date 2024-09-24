@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@pharmcare/twilio-room": "file:../pharmcare-twilio-room-0.0.5.tgz",
+    "@pharmcare/twilio-room": "file:../pharmcare-twilio-room-0.0.6.tgz",
     "@twilio/video-room-monitor": "^1.0.1",
     "@types/react": "^18.3.8",
     "react": "^16.13.1",

@@ -6,11 +6,20 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "dev": "npm pack",
+    "local": "cross-env FAST_REFRESH=false react-scripts start",
     "clean": "rimraf ./dist",
+    "dev": "npm pack && cd example && npm i --save ../%npm_package_name%-%npm_package_version%.tgz && cross-env FAST_REFRESH=false react-scripts start",
+    "start-test": "npm pack && cd example && npm i --save ../pharmcare-twilio-room-%npm_package_version%.tgz && cross-env FAST_REFRESH=false npm run start",
+    "start": "cross-env FAST_REFRESH=false react-scripts start",
+    "start:example": "cd example && cross-env FAST_REFRESH=false react-scripts start",
     "build": "npm run clean && npm run build:tsc",
+    "build:esm": "tsc --outDir dist/esm",
+    "build:cjs": "tsc --module commonjs --outDir dist/cjs",
     "build:tsc": "tsc --module commonjs --outDir dist",
     "build:publish": "npm run build && npm publish",
+    "copyFiles:esm": "copyfiles -u 1 ./src/**/*.jpg ./dist/esm/",
+    "copyFiles:cjs": "copyfiles -u 1 ./src/**/*.jpg ./dist/cjs/",
+    "copyFiles:types": "copyfiles -u 1 ./types/*.d.ts ./dist/types",
     "prepack": "npm run build"
   },
   "files": [
@@ -27,8 +36,9 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "@material-ui/core": "^4.12.4",
-    "@material-ui/icons": "^4.11.3",
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^4.11.2",
+    "@react-spring/web": "^9.7.3",
     "@twilio/video-room-monitor": "^1.0.1",
     "clsx": "^2.0.0",
     "d3-timer": "^1.0.10",
@@ -45,7 +55,10 @@
     "@types/lodash.throttle": "^4.1.9",
     "@types/node": "^18.19.50",
     "@types/react": "^18.3.8",
+    "copyfiles": "^2.4.1",
+    "cross-env": "^7.0.3",
     "prettier": "^3.0.3",
+    "react-scripts": "^5.0.1",
     "rimraf": "^5.0.5"
   },
   "browserslist": {
