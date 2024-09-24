@@ -1,9 +1,9 @@
 import React, { createContext, useCallback, useEffect } from 'react';
 import { CreateLocalTrackOptions, ConnectOptions, LocalAudioTrack, LocalVideoTrack, Room } from 'twilio-video';
 import { ErrorCallback, TEventHandlers, TrackProperty } from '../../types';
-// import { SelectedParticipantProvider } from './useSelectedParticipant/useSelectedParticipant';
+import { SelectedParticipantProvider } from './useSelectedParticipant/useSelectedParticipant';
 
-// import AttachVisibilityHandler from './AttachVisibilityHandler/AttachVisibilityHandler';
+import AttachVisibilityHandler from './AttachVisibilityHandler/AttachVisibilityHandler';
 import useHandleRoomDisconnection from './useHandleRoomDisconnection/useHandleRoomDisconnection';
 import useHandleTrackPublicationFailed from './useHandleTrackPublicationFailed/useHandleTrackPublicationFailed';
 import useLocalTracks from './useLocalTracks/useLocalTracks';
@@ -127,12 +127,12 @@ export function VideoProvider({
         clickEndcall: onDisconnect,
       }}
     >
-      {/* <SelectedParticipantProvider room={room}>{children}</SelectedParticipantProvider> */}
+      <SelectedParticipantProvider room={room}>{children}</SelectedParticipantProvider>
       {/* 
         The AttachVisibilityHandler component is using the useLocalVideoToggle hook
         which must be used within the VideoContext Provider.
       */}
-      {/* <AttachVisibilityHandler /> */}
+      <AttachVisibilityHandler />
     </VideoContext.Provider>
   );
 }

@@ -42,7 +42,6 @@
     "@material-ui/icons": "^4.11.2",
     "@react-spring/web": "^9.7.3",
     "@twilio/video-room-monitor": "^1.0.1",
-    "ajv": "^8.17.1",
     "clsx": "^2.0.0",
     "d3-timer": "^1.0.10",
     "is-plain-object": "^5.0.0",
