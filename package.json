@@ -1,6 +1,6 @@
 {
   "name": "@pharmcare/twilio-room",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "description": "Custom Twilio Video UI",
   "module": "./dist/index.js",
   "main": "./dist/index.js",
@@ -29,6 +29,7 @@
   "dependencies": {
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
+    "@react-spring/web": "^9.7.4",
     "@twilio/video-room-monitor": "^1.0.1",
     "clsx": "^2.0.0",
     "d3-timer": "^1.0.10",
